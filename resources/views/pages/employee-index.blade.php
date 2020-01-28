@@ -6,13 +6,13 @@
 <ul>
     @foreach ($employees as $employee)
     
-        <li> <h4>NOME: {{ $employee -> name}}</h4> 
+        <li> ID [{{ $employee -> id}}]<h4>NOME: {{ $employee -> name}}</h4> 
          <h4>COGNOME: {{ $employee -> lastname}}</h4>
 
         <ul>
             @foreach ($employee -> tasks as $task)
                 <li>
-                    {{$task -> title}} 
+                <a href="{{route('employee.task.remove', [$employee-> id, $task -> id ])}}">X</a> [{{$task -> id}} ]- {{$task -> title}} 
                 </li>
             @endforeach
          </ul>

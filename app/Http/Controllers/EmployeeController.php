@@ -40,6 +40,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        //bypassa la validazione e butta dentro tutto
         $data =$request -> all();
         //questo mi va a buttare dentro la tabella employees un nuovo elemento 
         $employee = Employee::create($data);
