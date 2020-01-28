@@ -13,3 +13,5 @@ Route::get('/employee/{ide}/remove/task/{idt}','ExtraController@removeTaskFromEm
 
 Route::get('/employee/{id}/edit', 'EmployeeController@edit') -> name('employee.edit');
 Route::post('/employee/{id}/update','EmployeeController@update') -> name('employee.update');
+
+Route::get('/employee/{id}/delete', 'EmployeeController@destroy') -> name('employee.delete');

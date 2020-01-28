@@ -18,6 +18,7 @@
          </ul>
          <br>
         <a href="{{route('employee.edit', $employee -> id)}}">EDIT</a>
+         <a href="{{route('employee.delete', $employee -> id)}}">DELETE</a>
 
         </li> 
         

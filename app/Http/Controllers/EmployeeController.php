@@ -112,6 +112,20 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //identifico l'elemento da eliminare
+        $employee = Employee::findOrFail($id);
+        // non posso fare la delete brutalmente perchè l'employee ha associato dei tasks
+        //mi prendo i task associati all'employee e li scollego
+       
+        //posso farlo o con la detouch uno per uno o semplicemente con sync([]) cosi li prende tutti
+        $employee -> tasks() -> sync([]);
+        //in maniera estesa sarebbe 
+        // $tasks = $employee -> tasks;
+        // foreach ($tasks as $task){
+        //     $employee -> tasks() -> detach($task);
+        // }
+            $employee -> delete();
+        return redirect() -> route('employee.index');
+
     }
 }
