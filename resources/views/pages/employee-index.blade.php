@@ -16,6 +16,8 @@
                 </li>
             @endforeach
          </ul>
+         <br>
+        <a href="{{route('employee.edit', $employee -> id)}}">EDIT</a>
 
         </li> 
         

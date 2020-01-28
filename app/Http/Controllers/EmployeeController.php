@@ -71,7 +71,12 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        //essendo che devo dare la possibilità all'utente di aggiungere
+        // in fase di creazione tutti i task possibili glieli devo inviare tutti
+        //posso farlo anche con la db: nel blade
+        $tasks = Task::all();
+        return view('pages.employee-edit',compact('employee','tasks'));
     }
 
     /**
@@ -83,7 +88,20 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request -> all();
+        // vado a prendere l'elemento su cui voglio effettuare l'operazione
+        $employee = Employee::findOrFail($id);
+        //modifico l'elemento
+         $employee -> update($data);
+         //vado quindi ad assegnare il cambiamento ai tasks collegati
+        //prima  recupero tutti quelli che l'utente ha selezionato
+        $tasks = Task::find($data['tasks']);
+        // prendo l'elemento appena modificato e lavorando sulla relazione con i task gli dico tienimi solo quelli che ti sto passando
+        $employee -> tasks() -> sync($tasks);
+
+        return redirect() -> route('employee.index');
+
+
     }
 
     /**
