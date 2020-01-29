@@ -10,9 +10,49 @@
 <body>
     
     <header>
-        header
+
+    @auth
+        <h1>BENVENUTO : {{Auth::user() -> name}}</h1> <br>
+    @else
+    <h1>GUEST</h1> 
+    @endauth
+        
     </header>
-        <h2> <a href="{{route('employee.create')}}"> NEW EMPLOYEE</a> </h2>
+
+  
+
+
+     @auth
+        <form action="{{ route('logout') }}" method="post">
+          @csrf
+          @method('POST')
+          <input type="submit" name="" value="LOGOUT">
+        </form>
+        <a href="{{ route('employee.create') }}">CREATE NEW EMPLOYEE</a>
+      @else
+
+        <a href="{{ route('login') }}">LOGIN</a>
+      @endauth
+
+      @auth
+      <form action="{{route('user.image.set')}}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('POST')
+        <input type="file" name="image" value=""><br>
+        <input type="submit" name="" value="SAVE IMAGE">
+      </form>   
+      @endauth
+
+      @auth
+          @if (Auth::user()-> image)
+
+             <img class='img-fluid' src="{{ asset('images/' . Auth::user() -> image)}}" alt="">
+    
+          @endif
+      @endauth
+
+
+
     @yield('content')
 
     <footer>

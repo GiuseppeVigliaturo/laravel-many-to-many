@@ -15,3 +15,8 @@ Route::get('/employee/{id}/edit', 'EmployeeController@edit') -> name('employee.e
 Route::post('/employee/{id}/update','EmployeeController@update') -> name('employee.update');
 
 Route::get('/employee/{id}/delete', 'EmployeeController@destroy') -> name('employee.delete');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/user/image/set','ExtraController@setUserImage') -> name('user.image.set');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Employee;
 use App\Task;
 class EmployeeController extends Controller
@@ -40,14 +42,26 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //bypassa la validazione e butta dentro tutto
-        $data =$request -> all();
-        //questo mi va a buttare dentro la tabella employees un nuovo elemento 
-        $employee = Employee::create($data);
-        //trovo tutti i tag selezionati nelle option che arrivano perchè nella value della option lo invio
+        // //bypassa la validazione e butta dentro tutto
+        // $data =$request -> all();
+        // //questo mi va a buttare dentro la tabella employees un nuovo elemento 
+        // $employee = Employee::create($data);
+        // //trovo tutti i tag selezionati nelle option che arrivano perchè nella value della option lo invio
+        // $tasks = Task::find($data['tasks']);
+        // //infine attacco i task selezionati al nuovo employee creato
+        // //mi crea una riga nella tabella pivot
+        // $employee -> tasks() -> attach($tasks);
+        // return redirect() -> route('employee.index');
+
+       
+        $data = $request -> all();
+        $user = Auth::user();
+        $employee = Employee::make($data);
+        $employee -> user() -> associate($user);
+        $employee -> save();
+        
         $tasks = Task::find($data['tasks']);
-        //infine attacco i task selezionati al nuovo employee creato
-        //mi crea una riga nella tabella pivot
+      
         $employee -> tasks() -> attach($tasks);
         return redirect() -> route('employee.index');
     }

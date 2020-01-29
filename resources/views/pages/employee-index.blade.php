@@ -12,14 +12,28 @@
         <ul>
             @foreach ($employee -> tasks as $task)
                 <li>
-                <a href="{{route('employee.task.remove', [$employee-> id, $task -> id ])}}">X</a> [{{$task -> id}} ]- {{$task -> title}} 
-                </li>
+                      @auth
+                     @if (Auth::user() -> id == $employee -> user ->id )
+                 <a href="{{route('employee.task.remove', [$employee-> id, $task -> id ])}}">X</a> 
+                  @endif
+                @endauth
+                [{{$task -> id}} ]- {{$task -> title}} 
+            </li>
             @endforeach
          </ul>
-         <br>
-        <a href="{{route('employee.edit', $employee -> id)}}">EDIT</a>
-         <a href="{{route('employee.delete', $employee -> id)}}">DELETE</a>
+         @auth
 
+         @if (Auth::user() -> id == $employee -> user ->id )
+
+        <a href="{{route('employee.edit', $employee -> id)}}">EDIT</a>
+        <br>
+         <a href="{{route('employee.delete', $employee -> id)}}">DELETE</a>
+         @endif
+         @endauth
+
+         <br>
+        
+         author: <strong>{{$employee -> user -> name}}</strong> 
         </li> 
         
 

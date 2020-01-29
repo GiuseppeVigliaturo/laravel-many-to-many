@@ -11,7 +11,14 @@ class Employee extends Model
         'lastname'
     ];
 
+    //definisco le varie relazioni 
+    //attenzione a singolari e plurali
+
     public function tasks() {
         return $this -> belongsToMany(Task::class);
+    }
+
+    public function user() {
+        return $this -> belongsTo(User::class);
     }
 }
